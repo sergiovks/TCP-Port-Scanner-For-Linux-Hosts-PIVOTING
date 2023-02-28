@@ -6,16 +6,13 @@ function ctrl_c(){
 }
 
 # Ctrl+C
-
 trap ctrl_c INT
-
 tput civis
 
-# Change the IP address for the IP that you want to scan to pivot
+read -p "Enter the IP address that you want to scan: " ip
 
 for port in $(seq 1 65535); do
-        timeout 1 bash -c "echo '' > /dev/tcp/10.10.0.128/$port" 2>/dev/null && echo "[+] The port $port is OPEN" &
+        timeout 1 bash -c "echo '' > /dev/tcp/$ip/$port" 2>/dev/null && echo "[+] The port $port is OPEN" &
 done; wait
 
 tput cnorm
-
